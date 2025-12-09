@@ -1,0 +1,136 @@
+#include <iostream>
+#include <windows.h>
+#include <string>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+int bet;
+string name;
+
+
+int playGuess(double & balance) {
+	
+	cout << "\n";
+	    cout << " - current balance - " << balance << endl;
+	    cout << " - how much do you want to bet?\n";
+		cout << " - ";
+		cin >> bet;
+
+		if (bet > balance) {
+			cout << "\n";
+    	cout << " - you dont have enough money";
+			return 0;
+		}
+		else {
+			balance -= bet;
+		}
+
+	int randomNumber = rand() % 15 + 1;
+	int playerGuess;
+	int tries = 3;
+	while (tries > 0) {
+	cout << "\n";
+	    cout << " - enter your guess [1-15] \n";
+		cout << " - ";
+		cin >> playerGuess;
+
+	if (playerGuess == randomNumber) {
+		cout << " - correct - you win\n";
+		balance += bet * 2;
+		return 1;
+	}
+	else {
+		cout << " - wrong";
+		tries--;
+	}
+	
+	}
+	cout << "\n";
+	cout << "\n - Out of tries! The number was " << randomNumber << endl;
+	return 0;
+}
+
+void showStats() {
+	  cout << " - 1 - your status\n";
+	  cout << " - 2 - guess game\n";
+	  cout << " - 3 - exit\n";
+}
+
+void greetPlayer() {
+	cout << "\n";
+	    cout << " - Welcome " << name << endl;
+
+}
+
+int main() {
+	srand(time(NULL));
+	int gamesWon = 0;
+	double balance = 100;
+	const int MIN_AGE = 18;
+	int age;
+	cout << "\n";
+	    cout << " - Your username: ";
+	getline(cin, name);
+
+
+	do {
+		cout << "\n";
+		cout << " - The minimum age to enter - 18\n";
+		cout << " - Your age: ";
+		cin >> age;
+		system("cls");
+	} while (age<MIN_AGE);
+
+	greetPlayer();
+	Sleep(2000);
+
+	while (true){
+		system("cls");
+		cout << "\n";
+		showStats();
+
+		int choice;
+		cout << " - your choice - ";
+		cin >> choice;
+		
+		if (choice == 1) {
+			cout << "\n";
+			cout << "  " << " " << name << " - your status " << endl;
+			cout << " - balance - " << balance << endl;
+			cout << " - games won - " << gamesWon << endl;
+			Sleep(2500);
+
+		}
+		else if (choice == 2) {
+			system("cls");
+			int result = playGuess(balance);
+
+			if (result == 1) {
+				gamesWon++;
+				
+
+
+			}
+			Sleep(2500);
+
+		}
+		else if (choice == 3) {
+			cout << "\n";
+			cout << "- have a nice day - " << name << endl;
+			Sleep(2500);
+			system("cls");
+			Beep(800, 600);
+			Sleep(1000);
+			exit(0);
+		}
+
+	}
+
+
+	return 0;
+}
+
+
+
+
